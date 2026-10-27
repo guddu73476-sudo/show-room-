@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Explore exotic sports cars, compare performance, save your dream garage, and estimate monthly payments with AutoMotion.">
+  <meta name="theme-color" content="#090b10">
+  <title>AutoMotion — Drive Beyond Ordinary</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <div class="ambient ambient-one"></div><div class="ambient ambient-two"></div>
+  <canvas id="particles" aria-hidden="true"></canvas>
+  <header class="site-header">
+    <a class="brand" href="#home" aria-label="AutoMotion home"><span class="brand-mark">A</span><span>AUTO<span class="accent">MOTION</span><small>DRIVE BEYOND ORDINARY</small></span></a>
+    <button class="menu-toggle" id="menuToggle" aria-label="Open navigation" aria-expanded="false">☰</button>
+    <nav id="mainNav" class="main-nav">
+      <a href="#home" class="nav-link active">Home</a><a href="#collection" class="nav-link">Collection</a>
+      <a href="#experience" class="nav-link">Experience</a><a href="#estimator" class="nav-link">Estimator</a><a href="#contact" class="nav-link">Contact</a>
+    </nav>
+    <div class="header-actions"><button id="themeToggle" class="icon-btn" aria-label="Toggle light theme" title="Toggle theme">☼</button><button id="motionToggle" class="icon-btn" aria-label="Toggle animations" title="Toggle animations">✦</button><a class="header-cta" href="#collection">Explore cars <span>↗</span></a></div>
+  </header>
+
+  <main>
+    <section class="hero section-wrap" id="home">
+      <div class="hero-copy reveal">
+        <div class="eyebrow"><span class="live-dot"></span> THE ART OF PERFORMANCE</div>
+        <h1>Not made to<br>fit in. <span class="gradient-text">Made to<br>stand apart.</span></h1>
+        <p class="hero-description">Discover machines that turn every road into an experience. Explore the details, compare the numbers, and find your next obsession.</p>
+        <div class="hero-actions"><a href="#collection" class="btn btn-primary">Explore collection <span>↗</span></a><a href="#experience" class="text-link">Discover the experience <span>→</span></a></div>
+        <div class="hero-stats"><div><strong>06</strong><span>ICONIC MACHINES</span></div><div><strong>800<span class="accent">+</span></strong><span>HORSEPOWER CLUB</span></div><div><strong>02.5<span class="accent">s</span></strong><span>0–100 KM/H CLASS</span></div></div>
+      </div>
+      <div class="hero-visual reveal">
+        <div class="hero-image-wrap"><img class="hero-image" src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1500&q=85" alt="Silver sports car on a dramatic road" fetchpriority="high" onerror="this.style.display='none'"><div class="hero-image-shade"></div>
+          <div class="image-label"><span class="label-line"></span><span>DESIGNED FOR THE UNFORGETTABLE</span></div>
+          <div class="hero-floating-card"><span class="tiny-label">FEATURED MACHINE</span><strong>Porsche 911 Carrera</strong><span>ICONIC. REFINED. UNMISTAKABLE.</span><a href="#collection">Discover car <b>↗</b></a></div>
+          <div class="hero-vertical">AUTOMOTIVE CULTURE / VOL. 01</div>
+        </div><div class="hero-orbit"></div>
+      </div>
+      <a href="#collection" class="scroll-cue"><span></span> SCROLL TO EXPLORE</a>
+    </section>
+
+    <section class="trust-strip"><span>PERFORMANCE, REDEFINED</span><i>✦</i><span>DESIGN THAT MOVES YOU</span><i>✦</i><span>BUILT FOR THE BOLD</span><i>✦</i><span>YOUR DREAM GARAGE</span></section>
+
+    <section class="collection section-wrap section-space" id="collection">
+      <div class="section-heading reveal"><div><div class="eyebrow">THE COLLECTION / 001—006</div><h2>Choose your <span class="gradient-text">adrenaline.</span></h2><p>Six extraordinary machines. One place to find your favourite.</p></div><div class="collection-counter"><strong id="resultCount">06</strong><span>VEHICLES</span></div></div>
+      <div class="toolbar reveal">
+        <label class="search-box"><span>⌕</span><input id="searchInput" type="search" placeholder="Search cars or brands..." aria-label="Search cars"></label>
+        <label class="select-wrap"><span class="sr-only">Sort cars</span><select id="sortSelect"><option value="featured">Sort: Featured</option><option value="priceLow">Price: Low to high</option><option value="priceHigh">Price: High to low</option><option value="hpHigh">Horsepower: High to low</option><option value="accel">Fastest 0–100</option></select></label>
+        <label class="select-wrap"><span class="sr-only">Car type</span><select id="typeFilter"><option value="all">All body types</option><option value="Coupe">Coupe</option><option value="Supercar">Supercar</option><option value="Hypercar">Hypercar</option></select></label>
+        <button class="filter-btn" id="filterToggle" aria-expanded="false">＋ Filters</button>
+        <button class="filter-btn" id="favoritesToggle" aria-pressed="false">♡ Dream garage <span id="favoriteCount">0</span></button>
+      </div>
+      <div class="advanced-filters" id="advancedFilters" hidden>
+        <label>Maximum price <strong id="priceValue">₹5.0 Cr</strong><input id="priceRange" type="range" min="10000000" max="80000000" step="1000000" value="80000000"></label>
+        <label>Minimum horsepower <strong id="hpValue">Any</strong><input id="hpRange" type="range" min="0" max="900" step="50" value="0"></label>
+        <button class="clear-btn" id="clearFilters">Clear filters ↺</button>
+      </div>
+      <div class="car-grid" id="carGrid" aria-live="polite"></div>
+      <div class="empty-state" id="emptyState" hidden><span>⌕</span><h3>No cars found</h3><p>Try another search or clear your filters.</p><button class="btn btn-outline" id="resetSearch">Reset collection</button></div>
+      <div class="compare-dock" id="compareDock" hidden><div><strong>Compare your shortlist</strong><span id="compareSummary">0 of 3 selected</span></div><button class="btn btn-primary" id="compareButton">Compare cars ↗</button><button class="icon-btn" id="clearCompare" aria-label="Clear comparison">×</button></div>
+      <div class="compare-result" id="compareResult" hidden></div>
+      <p class="disclaimer">*Vehicle prices and specifications are illustrative demo data for this website, not live offers.</p>
+    </section>
+
+    <section class="experience section-space" id="experience"><div class="section-wrap experience-grid">
+      <div class="experience-art reveal"><img src="https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&w=1200&q=85" alt="Performance car photographed from the front" loading="lazy"><div class="art-index">AM / 001</div><div class="art-caption"><span>ENGINEERED TO FEEL ALIVE</span><strong>Emotion in<br>every detail.</strong></div></div>
+      <div class="experience-copy reveal"><div class="eyebrow">MORE THAN MACHINES</div><h2>Every detail has<br><span class="gradient-text">a purpose.</span></h2><p>From the sculpted bodywork to the sound of an engine coming alive, great automotive design is a meeting point of precision and emotion.</p>
+        <div class="feature-list"><div><span class="feature-icon">↗</span><div><strong>Performance, made clear</strong><p>Understand power, acceleration and key specifications at a glance.</p></div></div><div><span class="feature-icon">◇</span><div><strong>Compare with confidence</strong><p>Put your favourites side by side before making your shortlist.</p></div></div><div><span class="feature-icon">♡</span><div><strong>Your own dream garage</strong><p>Save the cars you love in this browser and return to them later.</p></div></div></div>
+        <a href="#collection" class="btn btn-outline">Find your machine <span>↗</span></a>
+      </div>
+    </div></section>
+
+    <section class="estimator section-wrap section-space" id="estimator"><div class="section-heading reveal"><div><div class="eyebrow">PLAN YOUR NEXT MOVE</div><h2>Make the numbers <span class="gradient-text">work.</span></h2><p>Explore a sample monthly payment estimate for your dream car.</p></div></div>
+      <div class="estimator-panel reveal"><div class="estimator-controls">
+        <label class="field-label">Choose your car<select id="estCar"></select></label>
+        <div class="field-label">Display currency<div class="currency-switch"><button data-currency="INR" class="currency-option active">₹ INR</button><button data-currency="USD" class="currency-option">$ USD</button></div></div>
+        <label class="field-label">Car price <div class="range-heading"><span id="estPriceText">₹1.80 Cr</span><span id="estPricePercent">100% of list</span></div><input id="estPrice" type="range" min="10000000" max="50000000" step="100000" value="18000000"></label>
+        <label class="field-label">Down payment <div class="range-heading"><span id="downText">₹36.0 L</span><span id="downPercent">20%</span></div><input id="downPayment" type="range" min="10" max="80" step="5" value="20"></label>
+        <label class="field-label">Loan term<select id="loanTerm"><option value="3">3 years</option><option value="4">4 years</option><option value="5" selected>5 years</option><option value="6">6 years</option><option value="7">7 years</option></select></label>
+        <label class="field-label">Illustrative annual interest rate <div class="range-heading"><span id="rateText">9.5%</span><span>Estimate only</span></div><input id="interestRate" type="range" min="5" max="18" step="0.5" value="9.5"></label>
+      </div><div class="estimate-output"><div class="output-top"><span class="tiny-label">ESTIMATED MONTHLY PAYMENT</span><span class="output-orbit">↗</span></div><strong id="monthlyPayment">₹0</strong><p>Estimated monthly instalment</p><div class="output-divider"></div><div class="output-row"><span>Loan amount</span><strong id="loanAmount">—</strong></div><div class="output-row"><span>Estimated interest</span><strong id="totalInterest">—</strong></div><div class="output-row"><span>Total paid incl. down payment</span><strong id="totalPaid">—</strong></div><small>This is a sample calculation, not a loan offer. Taxes, insurance, fees and lender terms are excluded.</small></div></div>
+    </section>
+
+    <section class="contact section-wrap section-space" id="contact"><div class="contact-panel reveal"><div><div class="eyebrow">YOUR NEXT CHAPTER</div><h2>Got a dream car<br>in <span class="gradient-text">mind?</span></h2><p>Send a demo enquiry and keep building your shortlist. This portfolio form runs locally and does not send data to a dealership.</p></div>
+      <form id="contactForm" class="contact-form"><label>Your name<input name="name" type="text" placeholder="Enter your name" minlength="2" required></label><label>Email address<input name="email" type="email" placeholder="you@example.com" required></label><label>Car of interest<select name="car" id="contactCar" required></select></label><label>Message<textarea name="message" rows="3" placeholder="Tell us what you're looking for..."></textarea></label><button class="btn btn-primary" type="submit">Preview enquiry ↗</button><p class="form-note" id="formNote" aria-live="polite"></p></form>
+    </div></section>
+    <section class="closing-banner"><div class="closing-inner"><span class="eyebrow">THE ROAD IS YOURS</span><h2>Drive beyond<br><span class="gradient-text">ordinary.</span></h2><a class="btn btn-primary" href="#collection">Explore the collection ↗</a></div><div class="closing-watermark">AM</div></section>
+  </main>
+
+  <footer class="site-footer"><a class="brand" href="#home"><span class="brand-mark">A</span><span>AUTO<span class="accent">MOTION</span><small>DRIVE BEYOND ORDINARY</small></span></a><p>Designed for those who feel the drive.</p><div class="footer-links"><a href="#home">Home</a><a href="#collection">Collection</a><a href="#estimator">Estimator</a><a href="#contact">Contact</a></div><span class="copyright">© <span id="year"></span> AutoMotion · Demo concept</span></footer>
+  <button class="back-top" id="backTop" aria-label="Back to top">↑</button>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <dialog id="carDialog" class="car-dialog"><button class="dialog-close" id="dialogClose" aria-label="Close details">×</button><div id="dialogContent"></div></dialog>
+  <dialog id="galleryDialog" class="gallery-dialog"><button class="dialog-close" id="galleryClose" aria-label="Close gallery">×</button><button class="gallery-arrow gallery-prev" id="galleryPrev" aria-label="Previous photo">‹</button><img id="galleryImage" src="" alt="Car gallery image"><button class="gallery-arrow gallery-next" id="galleryNext" aria-label="Next photo">›</button><div id="galleryCaption" class="gallery-caption"></div></dialog>
+  <dialog id="compareDialog" class="compare-dialog"><button class="dialog-close" id="compareClose" aria-label="Close comparison">×</button><div id="compareDialogContent"></div></dialog>
+</body>
+</html>
